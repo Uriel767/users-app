@@ -5,8 +5,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Radio from '@mui/material/Radio';
 
-export function UsersTable({ users, selectedId, onSelect }) {
+export function UsersTable({ users = [], selectedId, onSelect }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="Tabla de Usuarios">
@@ -23,26 +24,28 @@ export function UsersTable({ users, selectedId, onSelect }) {
           {users.map((u) => {
             const isSelected = selectedId === u.id;
 
-            <TableRow
-              key={u.id}
-              hover
-              selected={isSelected}
-              onPress={() => onSelect(u.id)}
-              sx={{ cursor: "pointer" }}
-            >
-              <TableCell padding="checkbox">
-                <Radio
-                  checked={isSelected}
-                  onChange={() => onSelect(u.id)}
-                  value={u.id}
-                  name="userSelect"
-                />
-              </TableCell>
-              <TableCell >{u.id}</TableCell>
-              <TableCell >{u.name}</TableCell>
-              <TableCell >{u.email}</TableCell>
-              <TableCell >{u.phone.slice(0, 14)}</TableCell>
-            </TableRow>
+            return (
+              <TableRow
+                key={u.id}
+                hover
+                selected={isSelected}
+                onClick={() => onSelect(u.id)}
+                sx={{ cursor: "pointer" }}
+              >
+                <TableCell padding="checkbox">
+                  <Radio
+                    checked={isSelected}
+                    onChange={() => onSelect(u.id)}
+                    value={u.id}
+                    name="userSelect"
+                  />
+                </TableCell>
+                <TableCell >{u.id}</TableCell>
+                <TableCell >{u.name}</TableCell>
+                <TableCell >{u.email}</TableCell>
+                <TableCell >{u.phone.slice(0, 14)}</TableCell>
+              </TableRow>
+            );
           })}
         </TableBody>
       </Table>
